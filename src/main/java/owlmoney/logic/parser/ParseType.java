@@ -8,6 +8,8 @@ import owlmoney.logic.command.PlaceHolderEmptyCommand;
 import owlmoney.logic.command.bank.ListInvestmentCommand;
 import owlmoney.logic.command.bank.ListSavingsCommand;
 import owlmoney.logic.command.goals.ListGoalsCommand;
+import owlmoney.logic.parser.cardbill.ParseAddCardBill;
+import owlmoney.logic.parser.cardbill.ParseCardBill;
 import owlmoney.logic.parser.exception.ParserException;
 import owlmoney.logic.command.card.ListCardCommand;
 import owlmoney.logic.parser.bond.ParseAddBond;
@@ -54,7 +56,7 @@ class ParseType extends Parser {
      */
     private static final String[] TYPE_KEYWORDS = new String[] {
         "/savings", "/investment", "/cardexpenditure", "/bankexpenditure", "/goals", "/card",
-        "/recurexpenditure", "/bonds", "/profile", "/deposit"
+        "/recurexpenditure", "/bonds", "/profile", "/deposit", "/cardbill"
     };
     private static final List<String> TYPE_KEYWORD_LISTS = Arrays.asList(TYPE_KEYWORDS);
     private static final String BANK = "bank";
@@ -264,6 +266,17 @@ class ParseType extends Parser {
                 return editCard.getCommand();
             }
             throw new ParserException("You entered an invalid type for card");
+        case "/cardbill":
+            if ("/add".equals(command)) {
+                ParseCardBill payCardBill = new ParseAddCardBill(rawData);
+                payCardBill.fillHashTable();
+                payCardBill.checkParameter();
+                return payCardBill.getCommand();
+            } //else if ("/delete".equals(command)) {
+                //System.out.println("/delete /cardbill");
+                //break;
+            //}
+            throw new ParserException("You entered an invalid type for cardbill");
         case "/goals":
             if ("/add".equals(command)) {
                 ParseGoals addGoals = new ParseAddGoals(rawData);

@@ -19,7 +19,7 @@ public abstract class ParseCard {
     private static final String[] CARD_KEYWORD = new String[] {
         "/name", "/limit", "/rebate", "/newname"
     };
-    private static final List<String> EXPENDITURE_KEYWORD_LISTS = Arrays.asList(CARD_KEYWORD);
+    private static final List<String> CARD_KEYWORD_LISTS = Arrays.asList(CARD_KEYWORD);
     static final String NAME = "/name";
     static final String LIMIT = "/limit";
     static final String REBATE = "/rebate";
@@ -57,7 +57,7 @@ public abstract class ParseCard {
      */
     void checkFirstParameter() throws ParserException {
         String[] rawDateSplit = rawData.split(" ", 2);
-        if (!EXPENDITURE_KEYWORD_LISTS.contains(rawDateSplit[0])) {
+        if (!CARD_KEYWORD_LISTS.contains(rawDateSplit[0])) {
             throw new ParserException("Incorrect parameter " + rawDateSplit[0]);
         }
     }
@@ -68,13 +68,19 @@ public abstract class ParseCard {
      * @param valueString String to be checked and converted to double.
      * @throws ParserException If the string is not a double value.
      */
-    void checkLimist(String valueString) throws ParserException {
+    void checkLimit(String valueString) throws ParserException {
         if (!RegexUtil.regexCheckMoney(valueString)) {
             throw new ParserException("Limit can only be positive numbers"
                     + " with at most 9 digits and 2 decimal places");
         }
     }
 
+    /**
+     * Checks if cash back parameter entered by user is a double and only contains numbers.
+     *
+     * @param valueString String to be checked and converted to double.
+     * @throws ParserException If the string is not a double value.
+     */
     void checkCashBack(String valueString) throws ParserException {
         if (!RegexUtil.regexCheckMoney(valueString)) {
             throw new ParserException("Cash back can only be positive numbers"

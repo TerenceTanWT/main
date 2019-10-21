@@ -1,6 +1,7 @@
 package owlmoney.model.card;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
 
 import owlmoney.model.card.exception.CardException;
 import owlmoney.model.transaction.Transaction;
@@ -205,5 +206,9 @@ public class Card {
      */
     public boolean isEmpty() {
         return unpaid.expListIsEmpty();
+    }
+
+    public double getBillAmount(YearMonth date) {
+        return unpaid.getMonthAmountSpent(date.getMonthValue(), date.getYear());
     }
 }

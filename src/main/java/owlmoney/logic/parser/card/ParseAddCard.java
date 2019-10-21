@@ -37,7 +37,7 @@ public class ParseAddCard extends ParseCard {
                 throw new ParserException(key + " cannot be empty when adding a new card");
             }
             if (LIMIT.equals(key)) {
-                checkLimist(value);
+                checkLimit(value);
             }
             if (REBATE.equals(key)) {
                 checkCashBack(value);

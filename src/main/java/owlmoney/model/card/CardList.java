@@ -1,6 +1,7 @@
 package owlmoney.model.card;
 
 import java.text.DecimalFormat;
+import java.time.YearMonth;
 import java.util.ArrayList;
 
 import owlmoney.model.card.exception.CardException;
@@ -282,5 +283,20 @@ public class CardList {
         if (!isMultiplePrinting) {
             ui.printDivider();
         }
+    }
+
+    public double getBillAmount(String card, YearMonth date) throws CardException {
+        cardListCheckListEmpty();
+        double billAmount = 0;
+        for (int i = 0; i < cardLists.size(); i++) {
+            if (card.equals(cardLists.get(i).getName())) {
+                billAmount = cardLists.get(i).getBillAmount(date);
+            }
+        }
+        return billAmount;
+    }
+
+    public void payCardBill(String card, YearMonth cardDate) {
+
     }
 }

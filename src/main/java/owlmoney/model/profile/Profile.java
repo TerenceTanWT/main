@@ -1,5 +1,7 @@
 package owlmoney.model.profile;
 
+import java.time.YearMonth;
+
 import owlmoney.model.card.exception.CardException;
 import owlmoney.model.bank.Bank;
 import owlmoney.model.bank.BankList;
@@ -415,5 +417,17 @@ public class Profile {
      */
     public void editGoals(String goalName, String amount, String date, String newName, Ui ui) throws GoalsException {
         goalsList.editGoals(goalName, amount, date, newName, ui);
+    }
+
+
+    public double getCardBillAmount (String card, YearMonth date) throws CardException {
+        double cardBillAmount = cardList.getBillAmount(card, date);
+        return cardBillAmount;
+    }
+
+    public void payCardBill(String card, String to, Transaction exp, YearMonth cardDate, Ui ui, String type)
+            throws BankException {
+        bankList.bankListAddExpenditure(to, exp, ui, type);
+        //cardList.payCardBill(card, cardDate);
     }
 }
